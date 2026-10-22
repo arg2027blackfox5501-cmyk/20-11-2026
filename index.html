@@ -27,7 +27,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background-color: #000000;
+            background-color: #000001;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -134,7 +134,8 @@
         <div class="error-box">
             <h2 style="color: #ff4b2b; margin-bottom: 10px;">⚠️ LỖI HỆ THỐNG 404 / 502</h2>
             <p style="color: #aaa; font-size: 14px;">Trang web chưa được xác thực bản quyền.</p>
-            <p style="color: #00ffcc; margin-top: 15px; font-size: 13px;">👉 Bấm phím <b>[/]</b> trên bàn phím để vượt qua tường lửa!</p>
+            <p style="color: #00ffcc; margin-top: 15px; font-size: 13px;">👉 Bấm phím <b>[/]</b> trên bàn phím để chạy lệnh vào web
+            !</p>
         </div>
     </div>
 
@@ -149,15 +150,21 @@
             <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655" alt="Ảnh kỷ niệm 20/11">
         </div>
 
-        <p style="color: #777; margin-top: 50px;">⬇️ Hãy cuộn xuống tận cùng trang để mở khóa bước tiếp theo...</p>
+        <p style="color: #777; margin-top: 50px;">⬇️ Hãy cuộn xuống tận cùng trang để mở khoá web tiếp theo.</p>
 
-        <!-- Nút chuyển sang Trang 2 (Chỉ hiện ra khi cuộn xuống gần cuối trang) -->
+<!-- Nút chuyển sang Trang 2 (Chỉ hiện ra khi cuộn xuống gần cuối trang) -->
         <div class="next-page-container" id="nextBtnBox">
-            <a href="trang2.html" class="btn-next">🚀 Bấm vào đây để sang Cấp độ 2 ➔</a>
+            <a href="https://arg2027blackfox5501-cmyk.github.io/Chuc-co-2026/" class="btn-next" onclick="goToTrang2(event)">🚀 Bấm vào đây để sang web 2</a>
         </div>
     </div>
 
     <script>
+        function goToTrang2(e) {
+            e.preventDefault();
+            window.location.href = "https://arg2027blackfox5501-cmyk.github.io/Chuc-co-2026/";
+        }
+            </script>
+    
         // --- 1. MỞ KHÓA KHI BẤM PHÍM '/' ---
         window.addEventListener('keydown', function(e) {
             if (e.key === '/') {
