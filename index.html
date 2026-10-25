@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[7A6 WORKSPACE] - Lắp Ráp Lời Chúc 20/11</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+            color: #c9d1d9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            justify-content: center;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(22, 27, 34, 0.9);
+            border: 1px solid #30363d;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        h2 { color: #58a6ff; margin-bottom: 10px; }
+        p { color: #8b949e; font-size: 14px; margin-bottom: 25px; }
+        .drop-zone {
+            min-height: 60px;
+            border: 2px dashed #30363d;
+            border-radius: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px;
+            align-items: center;
+            justify-content: center;
+            background: #0d1117;
+            margin-bottom: 25px;
+        }
+        .placeholder-text { color: #484f58; font-style: italic; }
+        .word-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .word-chip {
+            background: #21262d;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            padding: 10px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .word-chip:hover { background: #30363d; border-color: #58a6ff; transform: translateY(-2px); }
+        .word-chip.used { opacity: 0.3; pointer-events: none; }
+        .chip-in-zone {
+            background: #1f6feb;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            animation: popIn 0.3s ease;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .next-btn {
+            background: #238636;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            display: none;
+            width: 100%;
+            transition: 0.2s;
+            box-shadow: 0 4px 15px rgba(35, 134, 54, 0.4);
+        }
+        .next-btn:hover { background: #2ea043; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>✨ Thử Thách Nhỏ Tặng Cô ✨</h2>
+        <p>Cô hãy bấm chọn các mảnh ghép bên dưới theo đúng thứ tự để hoàn thành lời chúc ý nghĩa từ tập thể lớp 7A6 nhé!</p>
+
+        <div class="drop-zone" id="dropZone">
+            <span class="placeholder-text" id="placeholder">Bấm vào các từ bên dưới để lắp ráp câu chúc...</span>
+        </div>
+
+        <div class="word-pool" id="wordPool">
+            <div class="word-chip" data-id="3">luôn mạnh khỏe,</div>
+            <div class="word-chip" data-id="1">Tập thể lớp 7A6</div>
+            <div class="word-chip" data-id="5">thật nhiều niềm vui!</div>
+            <div class="word-chip" data-id="2">kính chúc cô</div>
+            <div class="word-chip" data-id="4">hạnh phúc và</div>
+        </div>
+
+        <button class="next-btn" id="nextBtn" onclick="goToWeb3()">🎉 MỞ KHÓA TRANG CUỐI (HOÀNH TRÁNG NHẤT) 🚀</button>
+    </div>
+
+    <script>
+        const correctOrder = ["1", "2", "3", "4", "5"];
+        let currentSelected = [];
+
+        const wordPool = document.getElementById('wordPool');
+        const dropZone = document.getElementById('dropZone');
+        const placeholder = document.getElementById('placeholder');
+        const nextBtn = document.getElementById('nextBtn');
+
+        wordPool.addEventListener('click', function(e) {
+            if (e.target.classList.contains('word-chip') && !e.target.classList.contains('used')) {
+                const id = e.target.getAttribute('data-id');
+                const text = e.target.innerText;
+
+                currentSelected.push({ id: id, text: text, element: e.target });
+                e.target.classList.add('used');
+
+                renderDropZone();
+                checkResult();
+            }
+        });
+
+        function renderDropZone() {
+            dropZone.innerHTML = '';
+            if (currentSelected.length === 0) {
+                dropZone.appendChild(placeholder);
+                return;
+            }
+
+            currentSelected.forEach((item, index) => {
+                const chip = document.createElement('div');
+                chip.className = 'chip-in-zone';
+                chip.innerText = item.text;
+                chip.onclick = function() {
+                    item.element.classList.remove('used');
+                    currentSelected.splice(index, 1);
+                    renderDropZone();
+                    checkResult();
+                };
+                dropZone.appendChild(chip);
+            });
+        }
+
+        function checkResult() {
+            const userOrder = currentSelected.map(item => item.id);
+            if (userOrder.length === correctOrder.length) {
+                const isCorrect = userOrder.every((val, index) => val === correctOrder[index]);
+                if (isCorrect) {
+                    confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } });
+                    nextBtn.style.display = 'block';
+                    dropZone.style.borderColor = '#238636';
+                } else {
+                    dropZone.style.borderColor = '#f85149';
+                    setTimeout(() => { dropZone.style.borderColor = '#30363d'; }, 500);
+                    nextBtn.style.display = 'none';
+                }
+            } else {
+                nextBtn.style.display = 'none';
+                dropZone.style.borderColor = '#30363d';
+            }
+        }
+
+        function goToWeb3() {
+            // 🔗 THAY LINK GITHUB PAGES CỦA WEB 3 VÀO ĐÂY:
+            const WEB_3_URL = "https://username.github.io/repo-web-3"; 
+            
+            document.body.innerHTML = `
+                <div style="text-align: center; color: #58a6ff; font-family: monospace;">
+                    <h2>✨ ĐÃ XÁC THỰC THÀNH CÔNG! ✨</h2>
+                    <p style="color: #c9d1d9;">Đang mở kho báu cuối cùng dành tặng cô...</p>
+                </div>
+            `;
+            setTimeout(() => { window.location.href = WEB_3_URL; }, 1000);
+        }
+    </script>
+</body>
+</html>
