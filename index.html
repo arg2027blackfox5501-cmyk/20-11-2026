@@ -112,7 +112,7 @@
             <div class="word-chip" data-id="4">hạnh phúc và</div>
         </div>
 
-        <button class="next-btn" id="nextBtn" onclick="goToWeb3()">🎉 MỞ KHÓA TRANG CUỐI (HOÀNH TRÁNG NHẤT) 🚀</button>
+        <button class="next-btn" id="nextBtn" onclick="goToGame3()">🎉 MỞ KHÓA TRANG CUỐI (HOÀNH TRÁNG NHẤT) 🚀</button>
     </div>
 
     <script>
@@ -176,17 +176,17 @@
                 dropZone.style.borderColor = '#30363d';
             }
         }
-            // Khi hoàn thành file thứ hai
-          setTimeout(() => {
-      window.location.href = "game3.html"; // Chuyển thẳng sang file thứ ba
-      }, 1500);
+
+        function goToGame3() {
             document.body.innerHTML = `
-                <div style="text-align: center; color: #58a6ff; font-family: monospace;">
+                <div style="text-align: center; color: #58a6ff; font-family: monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
                     <h2>✨ ĐÃ XÁC THỰC THÀNH CÔNG! ✨</h2>
                     <p style="color: #c9d1d9;">Đang mở kho báu cuối cùng dành tặng cô...</p>
                 </div>
             `;
-            setTimeout(() => { window.location.href = WEB_3_URL; }, 1000);
+            setTimeout(() => { 
+                window.location.href = "game3.html"; 
+            }, 1000);
         }
     </script>
 </body>
